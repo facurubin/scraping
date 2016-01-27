@@ -1,0 +1,23 @@
+{
+  "name": "scraping",
+  "version": "0.0.1",
+  "description": "Scraping subtitulos",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/facurubin/scraping.git"
+  },
+  "author": "Facundoo Rubin (facundorubin @ gmail dot com)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/facurubin/scraping/issues"
+  },
+  "homepage": "https://github.com/facurubin/scraping#readme",
+  "dependencies": {
+    "cheerio": "^0.19.0",
+    "request": "^2.67.0"
+  }
+}
