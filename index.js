@@ -1,7 +1,7 @@
 var request = require('request'),
 	cheerio	= require('cheerio');
 
-var url='http://www.tusubtitulo.com/ajax_tabs.php?mode=translated&page=1&max=10';
+var url='http://www.tusubtitulo.com/ajax_tabs.php?mode=translated&page=1&max=20';
 
 request(url, function(error, response, html)
 {
@@ -16,9 +16,15 @@ request(url, function(error, response, html)
 				var dato= $(this);
 
 				titulos = dato.children().text();
+				url=dato.find('a').attr('href')	
 
-				//release = data.children().last().children().text();
-				console.log(titulos);
+				var serie=
+				{
+					titulo:titulos,
+					url:'http://www.tusubtitulo.com/'+url
+				}
+
+				console.log(serie);
 			});
 	}
 });	
