@@ -4,37 +4,32 @@ var request = require('request'),
 
 var url='http://www.tusubtitulo.com/ajax_tabs.php?mode=translated&page=1&max=20';
 
-var series={};
+var series = [];
 
 function listaSubtitulos(cb)
 //Peticion get a url y filter clase .line1 en DOM
 {
-	var series = []
+	
 	request(url, function(error, response, html)
 	{
-		if(error)
+		if(!error && response.statusCode == 200)
 		{
-			cb('Error al realizar la petición a '+url);
-		}else{
 			var $ = cheerio.load(html);
 
-			var lista = $('.line1 a').filter(function()
+			$('li.line1 > a').each(function(i, elem) 
 				{
-
-					var dato= $(this);
-
-					dato.each(function(i, elem) 
-					{
-				  		series.push(
-				  			{
-				  				titulo: $(this).text(),
-				  				url: 'http://www.tusubtitulo.com/'
-				  				+ elem.attribs.href
-				  			});
-					});
+			  		series.push(
+			  			{
+			  				titulo: $(this).text(),
+			  				url: 'http://www.tusubtitulo.com/'
+			  				+ elem.attribs.href
+			  			});
 				});
 
 			cb(null,series);
+		}else
+		{
+			cb('Error al realizar la petición a '+url);
 		}
 	});
 }
@@ -43,6 +38,9 @@ async.waterfall([listaSubtitulos],log)
 
 function log(err,dato)
 {
-	console.log(err)
-	console.log('Dato:',dato);	
+	if(err)
+	{
+		return console.log('Error: ',err);
+	}
+	console.log(dato);	
 }
